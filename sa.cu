@@ -2,6 +2,7 @@
 
 // For the CUDA runtime routines (prefixed with "cuda_")
 #include <cuda_runtime.h>
+#include <thrust/host_vector.h>
 
 /**
  * CUDA Kernel Device code

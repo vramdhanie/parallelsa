@@ -1,10 +1,13 @@
-objects = main.out 
+objects = main.o sa.o
 
 all: $(objects)
 	nvcc -arch=sm_20 $(objects) -o app
 
-%.out: %.cpp
+main.o: main.cpp
+	nvcc -x cu -arch=sm_20 -I. -dc $< -o $@
+
+sa.o: sa.cu
 	nvcc -x cu -arch=sm_20 -I. -dc $< -o $@
 
 clean:
-	rm -f *.out app
+	rm -f *.o app

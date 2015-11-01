@@ -1,4 +1,4 @@
-objects = main.out
+objects = main.out 
 
 all: $(objects)
 	nvcc -arch=sm_20 $(objects) -o app

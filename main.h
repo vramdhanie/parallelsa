@@ -10,6 +10,8 @@
 #include <math.h>
 #include <sstream>
 #include <iostream>
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
 
 using namespace std;
 
@@ -27,6 +29,9 @@ void printVector(); //print the  content of the plots vector
 void revert(pair<int, int>, vector< pair<int, int> >&); //revert a configuration change
 void sa(int, int, vector< pair<int, int> >&); //perform the sequential SA algorithm
 void experiment(); //manage the experiment
+thrust::host_vector< thrust::host_vector<long double> > loadLandUses(std::fstream& dataFile);
+thrust::host_vector< thrust::host_vector<long double> > loadPlots(std::fstream& dataFile);
+thrust::host_vector< pair<int, int> > loadAssignments(std::fstream& dataFile, int n);
 
 
 #endif  // FINAL_PARALLELSA_MAIN_H_

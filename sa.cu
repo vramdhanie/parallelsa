@@ -2,7 +2,6 @@
 
 // For the CUDA runtime routines (prefixed with "cuda_")
 #include <cuda_runtime.h>
-#include <thrust/host_vector.h>
 #include "main.h"
 
 using namespace std;
@@ -32,8 +31,9 @@ int
 main(void)
 {
 
-    printf("Trying to call experiment from main");
+    printf("Trying to call experiment from main\n");
     experiment();
+
     // Error code to check return values for CUDA calls
     cudaError_t err = cudaSuccess;
 
@@ -196,4 +196,27 @@ if (err != cudaSuccess)
 
 printf("Done\n");
 return 0;
+}
+
+/*
+   Manage the process of loading data, running the experiment
+   and saving the results.
+*/
+__host__
+void experiment(){
+  for(int k = 0; k < NUMBER_OF_INPUT_FILES; k++){
+    std::ostringstream ostr; //output string stream
+    ostr << BASE_FILE_PATH << BASE_FILE_NAME << k << FILE_EXT;
+    std::fstream myfile(ostr.str().c_str(), std::ios_base::in);
+    thrust::host_vector< thrust::host_vector<long double> > plots = loadPlots(myfile);
+    thrust::host_vector< thrust::host_vector<long double> > landUses = loadLandUses(myfile);
+    thrust::host_vector< pair<int, int> > assignments = loadAssignments(myfile, plots.size());
+    myfile.close();
+    cout << "Plots: " << plots.size() << "\tLand Uses: " << landUses.size() << "\tAssigments: " << assignments.size() << endl;
+    //vector< pair<int, int> > a;
+    //for(int i = 1; i <= ITERATIONS_PER_FILE; i++){
+    //  a = assignments;
+      //sa(k, i, a);
+    //}
+  }
 }

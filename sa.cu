@@ -3,6 +3,9 @@
 // For the CUDA runtime routines (prefixed with "cuda_")
 #include <cuda_runtime.h>
 #include <thrust/host_vector.h>
+#include "main.h"
+
+using namespace std;
 
 /**
  * CUDA Kernel Device code
@@ -28,6 +31,9 @@ vectorAdd(const float *A, const float *B, float *C, int numElements)
 int
 main(void)
 {
+
+    printf("Trying to call experiment from main");
+    experiment();
     // Error code to check return values for CUDA calls
     cudaError_t err = cudaSuccess;
 

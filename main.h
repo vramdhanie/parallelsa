@@ -12,6 +12,7 @@
 #include <iostream>
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
+#include <thrust/transform.h>
 
 using namespace std;
 
@@ -25,13 +26,12 @@ const std::string FILE_EXT = ".txt"; /*file extension to use*/
 long double cost(vector< pair<int, int> >&); //cost function calculates the cost of a certain configuration
 pair<int, int> nextConfiguration(vector< pair<int, int> >&); //find another configuration
 void loadData(std::fstream&); //load all data from the input file
-void printVector(); //print the  content of the plots vector
 void revert(pair<int, int>, vector< pair<int, int> >&); //revert a configuration change
 void sa(int, int, vector< pair<int, int> >&); //perform the sequential SA algorithm
 void experiment(); //manage the experiment
-thrust::host_vector< thrust::host_vector<long double> > loadLandUses(std::fstream& dataFile);
-thrust::host_vector< thrust::host_vector<long double> > loadPlots(std::fstream& dataFile);
-thrust::host_vector< pair<int, int> > loadAssignments(std::fstream& dataFile, int n);
+__host__ thrust::host_vector< thrust::host_vector<double> > loadLandUses(std::fstream& dataFile);
+__host__ thrust::host_vector< thrust::host_vector<double> > loadPlots(std::fstream& dataFile);
+__host__ thrust::host_vector< pair<int, int> > loadAssignments(std::fstream& dataFile, int n);
 
 
 #endif  // FINAL_PARALLELSA_MAIN_H_

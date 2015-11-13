@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import pyopencl as cl
 import os
 
@@ -11,6 +12,17 @@ os.environ['PYOPENCL_CTX'] = '0:2'
 ctx = cl.create_some_context()
 queue = cl.CommandQueue(ctx)
 mf = cl.mem_flags
+
+# Read the data files
+path = '../Datagenerator/'
+filename = 'data_0.txt'
+f = open(path + filename)
+n = int(f.readline())
+m = int(f.readline())
+print n
+print m
+df = pd.read_csv('../DataGenerator/data_0.txt', skiprows=2, header=None, skip_blank_lines=True, nrows=n, delim_whitespace=True)
+print df
 
 a_np = np.random.rand(50000).astype(np.float32)
 
